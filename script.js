@@ -8,7 +8,8 @@ let numbers = document.querySelectorAll('.item_number'),
     display = document.getElementById ('display'),
     MemoryCurrentNumber = 0,
     MemoryNewNumber = false,
-    MemoryPendingOperation = '';
+    MemoryPendingOperation = '',
+    MememoryErrorMessage = 'На ноль делить нельзя';
    
 
 for (let i=0; i < numbers.length; i++) {
@@ -55,26 +56,28 @@ function numberPress (number){
  
 
 function operation (op) {
-    let localOperationMemory = display.value;
-    if (MemoryNewNumber && MemoryPendingOperation !== '=' ) {
-      display.value = MemoryCurrentNumber;
-    }else {
-       MemoryNewNumber = true;
-       if (MemoryPendingOperation === '+'){
-          MemoryCurrentNumber += parseFloat(localOperationMemory);
-       }else if (MemoryPendingOperation === '-'){
-         MemoryCurrentNumber -= parseFloat(localOperationMemory);
-      }else if (MemoryPendingOperation === '/'){
-         MemoryCurrentNumber /= parseFloat(localOperationMemory);
-      }else if (MemoryPendingOperation === '*'){
-         MemoryCurrentNumber *= parseFloat(localOperationMemory);
-      }else {
-         MemoryCurrentNumber = parseFloat(localOperationMemory);
-      };
-      display.value = MemoryCurrentNumber;
-      MemoryPendingOperation = op;
-    };
-};
+   let localOperationMemory = display.value;
+   if (MemoryNewNumber && MemoryPendingOperation !== '=' ) {
+   display.value = MemoryCurrentNumber;
+   }else {
+   MemoryNewNumber = true;
+   if (MemoryPendingOperation === '+'){
+   MemoryCurrentNumber += parseFloat(localOperationMemory);
+   }else if (MemoryPendingOperation === '-'){
+   MemoryCurrentNumber -= parseFloat(localOperationMemory);
+   }else if (MemoryPendingOperation === '/' && parseFloat(localOperationMemory) != 0){
+   MemoryCurrentNumber /= parseFloat(localOperationMemory);
+   }else if (MemoryPendingOperation === '/' && parseFloat(localOperationMemory) == 0){
+   MemoryCurrentNumber = MememoryErrorMessage;
+   }else if (MemoryPendingOperation === '*'){
+   MemoryCurrentNumber *= parseFloat(localOperationMemory);
+   }else {
+   MemoryCurrentNumber = parseFloat(localOperationMemory);
+   };
+   display.value = MemoryCurrentNumber;
+   MemoryPendingOperation = op;
+   };
+   };
   
 
 function decimal(argument) {
