@@ -28,8 +28,7 @@ for (let i=0; i < operations.length; i++) {
 for (let i=0; i < clearBtns.length; i++) {
    let clearBtn = clearBtns [i];
      clearBtn.addEventListener('click', function (e) {
-       clear (e.srcElement.id)
-      
+       clear (e.srcElement.id)   
      });
 };
 
